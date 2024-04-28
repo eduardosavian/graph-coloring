@@ -1,4 +1,6 @@
-# graph-mapping
+# Graph Coloring
+
+## Description
 
 Fazer a distribuição dos valores no tabuleiro do Sudoku, respeitando suas restrições, para tabuleiros de ordem variável.
 
@@ -11,4 +13,10 @@ A ordem do tabuleiro e o ponto de inicio da distribuição devem ser informados 
 - O trabalho deverá ser apresentado para a turma, explicando em detalhes como o algoritmo de solução foi feito.
 - Exemplo:
 
-    [![Exemplo de um Sudoku 4X4](exemplo.png)]
+    [![Exemplo de um Sudoku 4X4](images/exemplo.png)]
+
+## Run
+
+```bash
+python src/main
+```
