@@ -11,6 +11,7 @@ A ordem do tabuleiro e o ponto de inicio da distribuição devem ser informados 
 - A posição inicial deve ser escolhida pelo usuário (onde iniciará a distribuição dos valores/cores)
 
 - O trabalho deverá ser apresentado para a turma, explicando em detalhes como o algoritmo de solução foi feito.
+
 - Exemplo:
 
     [![Exemplo de um Sudoku 4X4](images/exemplo.png)]
