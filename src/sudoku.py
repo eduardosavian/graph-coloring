@@ -1,33 +1,61 @@
-import tkinter as tk
-from tkinter import messagebox
+import random
 
-class SudokuGUI:
-    def __init__(self, root, n=3):
-        self.root = root
-        self.n = n  # Size of Sudoku board (n x n)
+class Sudoku:
+    def __init__(self, size):
+        if size < 1:
+            raise ValueError("Size must be greater than 0, but got {}".format(size))
+        if size > 4:
+            raise ValueError("Size must be less than or equal to 4, but got {}".format(size))
+        self.size = size
+        self.sudoku = [[0 for _ in range(size)] for _ in range(size)]
+        self.generate()
 
-        self.board = [[tk.StringVar() for _ in range(n)] for _ in range(n)]
+    def print(self):
+        for row in self.sudoku:
+            print(' '.join(map(str, row)))
 
-        self.create_widgets()
+    def is_valid(self, row, col, num):
+        if num in self.sudoku[row]:
+            return False
+        for r in range(self.size):
+            if self.sudoku[r][col] == num:
+                return False
 
-    def create_widgets(self):
-        # Create n x n grid of entry widgets for Sudoku input
-        for i in range(self.n):
-            for j in range(self.n):
-                entry = tk.Entry(self.root, width=4, font=('Helvetica', 14), textvariable=self.board[i][j], justify='center')
-                entry.grid(row=i, column=j, padx=3, pady=3)
+        block_size = int(self.size**0.5)
+        start_row, start_col = (row // block_size) * block_size, (col // block_size) * block_size
+        for r in range(start_row, start_row + block_size):
+            for c in range(start_col, start_col + block_size):
+                if self.sudoku[r][c] == num:
+                    return False
+        return True
 
-        # Button to display the entered Sudoku puzzle
-        show_button = tk.Button(self.root, text='Show Sudoku', command=self.show_sudoku)
-        show_button.grid(row=self.n, columnspan=self.n, pady=10)
+    def solve(self):
+        empty_cell = self.find_empty()
+        if not empty_cell:
+            return True
+        row, col = empty_cell
+        for num in range(1, self.size + 1):
+            if self.is_valid(row, col, num):
+                self.sudoku[row][col] = num
+                if self.solve():
+                    return True
+                self.sudoku[row][col] = 0 
+        return False
 
-    def show_sudoku(self):
-        # Retrieve the Sudoku puzzle from the entry widgets
-        puzzle = [[self.board[i][j].get() or ' ' for j in range(self.n)] for i in range(self.n)]
+    def find_empty(self):
+        for i in range(self.size):
+            for j in range(self.size):
+                if self.sudoku[i][j] == 0:
+                    return (i, j)
+        return None
 
-        # Display the entered Sudoku puzzle
-        messagebox.showinfo('Entered Sudoku', self.format_sudoku(puzzle))
+    def generate(self):
+        self.solve() 
+        self.shuffle_board()
 
-    def format_sudoku(self, puzzle):
-        # Format the Sudoku puzzle for display
-        return '\n'.join([' '.join(row) for row in puzzle])
+    def shuffle_board(self):
+        nums = list(range(1, self.size + 1))
+        random.shuffle(nums)
+        for i in range(self.size):
+            for j in range(self.size):
+                self.sudoku[i][j] = nums[self.sudoku[i][j] - 1]
