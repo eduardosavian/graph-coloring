@@ -1,6 +1,5 @@
-import matplotlib.pyplot as plt
-import numpy as np
 import random
+import numpy as np
 
 class Sudoku:
     def __init__(self, size):
@@ -10,7 +9,6 @@ class Sudoku:
             raise ValueError("Size must be less than or equal to 4, but got {}".format(size))
         self.size = size
         self.sudoku = [[0 for _ in range(size)] for _ in range(size)]
-        self.generate()
 
     def print(self):
         for row in self.sudoku:
@@ -51,11 +49,11 @@ class Sudoku:
                     return (i, j)
         return None
 
-    def generate(self):
+    def generate(self, start_row, start_col):
         self.solve()
         self.shuffle_board()
 
-    def shuffle_board(self):
+    def shuffle_board(self, start_ro=0, start_col=0):
         nums = list(range(1, self.size + 1))
         random.shuffle(nums)
         for i in range(self.size):

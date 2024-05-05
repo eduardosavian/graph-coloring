@@ -1,12 +1,10 @@
-from sudoku import Sudoku
+from menu import SudokuGUI
+import tkinter as tk
 
 def main():
-    size = 4
-    sudoku = Sudoku(size)
-    sudoku.print() 
-    sudoku.plot()
-
-
+    root = tk.Tk()
+    sudoku_gui = SudokuGUI(root)
+    root.mainloop()
 
 if __name__ == "__main__":
     main()
