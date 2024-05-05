@@ -1,10 +1,11 @@
 from sudoku import Sudoku
 
 def main():
-    size = 5
-    sudoku_game = Sudoku(size)
-    print("Sudoku gerado:")
-    sudoku_game.print()
+    size = 4
+    sudoku = Sudoku(size)
+    sudoku.print() 
+    sudoku.plot()
+
 
 
 if __name__ == "__main__":

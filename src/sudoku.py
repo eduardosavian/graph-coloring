@@ -1,3 +1,5 @@
+import matplotlib.pyplot as plt
+import numpy as np
 import random
 
 class Sudoku:
@@ -59,3 +61,17 @@ class Sudoku:
         for i in range(self.size):
             for j in range(self.size):
                 self.sudoku[i][j] = nums[self.sudoku[i][j] - 1]
+
+    def plot(self):
+        grid = np.array(self.sudoku)
+        plt.figure(figsize=(self.size, self.size))
+        plt.title("Sudoku")
+        plt.imshow(grid, cmap='viridis', interpolation='nearest')
+
+        for i in range(self.size):
+            for j in range(self.size):
+                plt.text(j, i, grid[i, j], ha='center', va='center', color='black')
+
+        plt.xticks([])
+        plt.yticks([])
+        plt.show()
