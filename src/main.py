@@ -1,7 +1,7 @@
 from sudoku import Sudoku
 
 def main():
-    size = 4
+    size = 5
     sudoku_game = Sudoku(size)
     print("Sudoku gerado:")
     sudoku_game.print()

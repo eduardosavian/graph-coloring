@@ -39,7 +39,7 @@ class Sudoku:
                 self.sudoku[row][col] = num
                 if self.solve():
                     return True
-                self.sudoku[row][col] = 0 
+                self.sudoku[row][col] = 0
         return False
 
     def find_empty(self):
@@ -50,7 +50,7 @@ class Sudoku:
         return None
 
     def generate(self):
-        self.solve() 
+        self.solve()
         self.shuffle_board()
 
     def shuffle_board(self):
