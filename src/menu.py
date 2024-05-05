@@ -42,8 +42,6 @@ class SudokuGUI:
                 raise ValueError("Starting row or column is out of range for the specified size.")
 
             sudoku = Sudoku(self.n)
-            sudoku.print()
-
             self.plot_sudoku_board(sudoku)
 
         except ValueError as e:

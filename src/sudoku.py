@@ -11,10 +11,6 @@ class Sudoku:
         self.size = size
         self.sudoku = [[0 for _ in range(size)] for _ in range(size)]
 
-    def print(self):
-        for row in self.sudoku:
-            print(' '.join(map(str, row)))
-
     def is_valid(self, row, col, num):
         if num in self.sudoku[row]:
             return False
