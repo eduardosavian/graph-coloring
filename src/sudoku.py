@@ -54,7 +54,7 @@ class Sudoku:
         self.solve()
         self.shuffle_board()
 
-    def shuffle_board(self, start_ro=0, start_col=0):
+    def shuffle_board(self, start_row=0, start_col=0):
         nums = list(range(1, self.size + 1))
         random.shuffle(nums)
         for i in range(self.size):
