@@ -35,7 +35,7 @@ class SudokuGUI:
             self.n = int(self.size_entry.get())
             self.start_row = int(self.row_entry.get())
             self.start_col = int(self.col_entry.get())
-            
+
             if self.n < 1 or self.n > 4:
                 raise ValueError("Size must be between 1 and 4.")
             if self.start_row < 0 or self.start_row >= self.n or self.start_col < 0 or self.start_col >= self.n:
@@ -50,7 +50,7 @@ class SudokuGUI:
             messagebox.showerror("Error", str(e))
 
     def plot_sudoku_board(self, sudoku):
-        sudoku.generate(self.start_row, self.start_col)  # Generate Sudoku starting from specified position
+        sudoku.generate(self.start_row, self.start_col)
         grid = np.array(sudoku.sudoku)
         plt.figure(figsize=(self.n, self.n))
         plt.title("Sample Sudoku ({}x{})".format(self.n, self.n))
