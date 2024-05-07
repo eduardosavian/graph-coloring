@@ -6,8 +6,8 @@ class Sudoku:
     def __init__(self, size):
         if size < 1:
             raise ValueError("Size must be greater than 0, but got {}".format(size))
-        if size > 4:
-            raise ValueError("Size must be less than or equal to 4, but got {}".format(size))
+        if size > 16:
+            raise ValueError("Size must be less than or equal to 16, but got {}".format(size))
         self.size = size
         self.grid = [[0 for _ in range(size)] for _ in range(size)]
 
@@ -28,6 +28,7 @@ class Sudoku:
 
     def solve(self):
         empty_cell = self.find_empty()
+
         if not empty_cell:
             return True
         row, col = empty_cell
@@ -50,7 +51,7 @@ class Sudoku:
         self.solve()
         self.shuffle_board()
 
-    def shuffle_board(self, start_row=0, start_col=0):
+    def shuffle_board(self):
         nums = list(range(1, self.size + 1))
         random.shuffle(nums)
         for i in range(self.size):

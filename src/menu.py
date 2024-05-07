@@ -36,8 +36,8 @@ class SudokuGUI:
             self.start_row = int(self.row_entry.get())
             self.start_col = int(self.col_entry.get())
 
-            if self.n < 1 or self.n > 4:
-                raise ValueError("Size must be between 1 and 4.")
+            if self.n < 1 or self.n > 16:
+                raise ValueError("Size must be between 1 and 16.")
             if self.start_row < 0 or self.start_row >= self.n or self.start_col < 0 or self.start_col >= self.n:
                 raise ValueError("Starting row or column is out of range for the specified size.")
 
