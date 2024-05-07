@@ -49,7 +49,7 @@ class SudokuGUI:
 
     def plot_sudoku_board(self, sudoku):
         sudoku.generate(self.start_row, self.start_col)
-        grid = np.array(sudoku.sudoku)
+        grid = np.array(sudoku.grid)
         plt.figure(figsize=(self.n, self.n))
         plt.title("Sample Sudoku ({}x{})".format(self.n, self.n))
         plt.imshow(grid, cmap='viridis', interpolation='nearest')

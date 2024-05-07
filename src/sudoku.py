@@ -9,20 +9,20 @@ class Sudoku:
         if size > 4:
             raise ValueError("Size must be less than or equal to 4, but got {}".format(size))
         self.size = size
-        self.sudoku = [[0 for _ in range(size)] for _ in range(size)]
+        self.grid = [[0 for _ in range(size)] for _ in range(size)]
 
     def is_valid(self, row, col, num):
-        if num in self.sudoku[row]:
+        if num in self.grid[row]:
             return False
         for r in range(self.size):
-            if self.sudoku[r][col] == num:
+            if self.grid[r][col] == num:
                 return False
 
         block_size = int(self.size**0.5)
         start_row, start_col = (row // block_size) * block_size, (col // block_size) * block_size
         for r in range(start_row, start_row + block_size):
             for c in range(start_col, start_col + block_size):
-                if self.sudoku[r][c] == num:
+                if self.grid[r][c] == num:
                     return False
         return True
 
@@ -33,16 +33,16 @@ class Sudoku:
         row, col = empty_cell
         for num in range(1, self.size + 1):
             if self.is_valid(row, col, num):
-                self.sudoku[row][col] = num
+                self.grid[row][col] = num
                 if self.solve():
                     return True
-                self.sudoku[row][col] = 0
+                self.grid[row][col] = 0
         return False
 
     def find_empty(self):
         for i in range(self.size):
             for j in range(self.size):
-                if self.sudoku[i][j] == 0:
+                if self.grid[i][j] == 0:
                     return (i, j)
         return None
 
@@ -55,10 +55,10 @@ class Sudoku:
         random.shuffle(nums)
         for i in range(self.size):
             for j in range(self.size):
-                self.sudoku[i][j] = nums[self.sudoku[i][j] - 1]
+                self.grid[i][j] = nums[self.grid[i][j] - 1]
 
     def plot(self):
-        grid = np.array(self.sudoku)
+        grid = np.array(self.grid)
         plt.figure(figsize=(self.size, self.size))
         plt.title("Sudoku")
         plt.imshow(grid, cmap='viridis', interpolation='nearest')
