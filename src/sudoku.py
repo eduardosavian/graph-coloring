@@ -47,16 +47,56 @@ class Sudoku:
                     return (i, j)
         return None
 
-    def generate(self, start_row, start_col):
-        self.solve()
-        self.shuffle_board()
+    def set_value(self, row, col, value):
+        if 1 <= value <= self.size:
+            self.grid[row][col] = value
+        else:
+            raise ValueError("Value must be between 1 and {}, but got {}".format(self.size, value))
 
-    def shuffle_board(self):
-        nums = list(range(1, self.size + 1))
-        random.shuffle(nums)
+    def generate_and_propagate(self, start_row, start_col):
+        # Set the starting point
+        if not (0 <= start_row < self.size and 0 <= start_col < self.size):
+            raise ValueError("Invalid starting point.")
+
+        # Solve the Sudoku puzzle starting from the specified point
+        self.solve_from(start_row, start_col)
+
+        # Apply adjacency propagation
+        self.propagate_adjacency()
+
+    def solve_from(self, row, col):
+        # Solve the Sudoku puzzle starting from a specific point (recursive)
+        if row == self.size:
+            return True
+
+        next_row = row if col < self.size - 1 else row + 1
+        next_col = (col + 1) % self.size
+
+        if self.grid[row][col] != 0:
+            return self.solve_from(next_row, next_col)
+
+        for num in range(1, self.size + 1):
+            if self.is_valid(row, col, num):
+                self.grid[row][col] = num
+                if self.solve_from(next_row, next_col):
+                    return True
+                self.grid[row][col] = 0
+
+        return False
+
+    def propagate_adjacency(self):
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]  # Up, Down, Left, Right
+
+        # Iterate over each cell in the grid
         for i in range(self.size):
             for j in range(self.size):
-                self.grid[i][j] = nums[self.grid[i][j] - 1]
+                if self.grid[i][j] != 0:
+                    num = self.grid[i][j]
+                    # Propagate the number to adjacent cells
+                    for d in directions:
+                        ni, nj = i + d[0], j + d[1]
+                        if 0 <= ni < self.size and 0 <= nj < self.size and self.grid[ni][nj] == 0:
+                            self.grid[ni][nj] = num  # Set adjacent cell to the same number
 
     def plot(self):
         grid = np.array(self.grid)
@@ -71,3 +111,13 @@ class Sudoku:
         plt.xticks([])
         plt.yticks([])
         plt.show()
+
+size = 3
+sudoku = Sudoku(size)
+
+start_row, start_col = 2, 2
+initial_value = 1
+sudoku.set_value(start_row, start_col, initial_value)
+
+sudoku.generate_and_propagate(start_row, start_col)
+sudoku.plot()
