@@ -57,19 +57,19 @@ fn graph_coloring(
     return false;
 }
 
-fn graph_to_json(graph: &Vec<Vec<i32>>) -> String {  
+fn graph_to_json(graph: &Vec<Vec<i32>>) -> String {
     let mut res = String::from("\"graph\":[");
-    
+
     for row in 0..graph.len() {
         res.push_str("[");
         for col in 0..graph.len() {
             res.push_str(&format!("{},", graph[row][col]));
-        }                
+        }
         res.pop(); // Remove vírgula
-        res.push_str("],"); 
+        res.push_str("],");
     }
     res.pop(); // Remove vírgula
-    res.push_str("]"); 
+    res.push_str("]");
 
     res
 }
@@ -87,8 +87,8 @@ fn main() -> ExitCode {
     };
 
     // Graph order different from 4 or 9 or 16
-    if [4, 9, 16].contains(&graph_order) == false { 
-        return ExitCode::from(3); 
+    if [4, 9, 16].contains(&graph_order) == false {
+        return ExitCode::from(3);
     }
 
     let mut graph = generate_partial_sudoku(graph_order);
