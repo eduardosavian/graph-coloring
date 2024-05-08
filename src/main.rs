@@ -65,10 +65,10 @@ fn graph_to_json(graph: &Vec<Vec<i32>>) -> String {
         for col in 0..graph.len() {
             res.push_str(&format!("{},", graph[row][col]));
         }
-        res.pop(); // Remove vírgula
+        res.pop();
         res.push_str(";");
     }
-    res.pop(); // Remove vírgula
+    res.pop();
     res.push_str("-");
 
     res

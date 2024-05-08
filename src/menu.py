@@ -39,8 +39,8 @@ class SudokuGUI:
             self.start_row = int(self.row_entry.get())
             self.start_col = int(self.col_entry.get())
 
-            if self.n < 1 or self.n > 9:
-                raise ValueError("Size must be between 1 and 9.")
+            if self.n < 1 or self.n > 16:
+                raise ValueError("Size must be between 1 and 16.")
 
             # Run the executable with arguments
             result = subprocess.run([exe_path, str(self.n), str(self.start_row), str(self.start_col)],
