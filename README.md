@@ -21,5 +21,5 @@ A ordem do tabuleiro e o ponto de inicio da distribuição devem ser informados 
 ## Para executar para fazer o seguinte comando
 
 ```bash
-./sudoku-coloring.exe
+./graph-coloring.exe
 ```

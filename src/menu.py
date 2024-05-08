@@ -12,7 +12,7 @@ class SudokuGUI:
         self.start_col = 0
         self.master.title("Sudoku Solver")
 
-        self.size_label = tk.Label(master, text="Enter size of Sudoku board (e.g., 4 for 4x4):")
+        self.size_label = tk.Label(self.master, text=f"Enter size of Sudoku board (1-16):")
         self.size_label.pack()
         self.size_entry = tk.Entry(master)
         self.size_entry.pack()
