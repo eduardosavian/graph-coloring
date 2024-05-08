@@ -3,7 +3,6 @@ from tkinter import messagebox
 import matplotlib.pyplot as plt
 import numpy as np
 import subprocess
-import json
 
 class SudokuGUI:
     def __init__(self, master):
@@ -32,7 +31,7 @@ class SudokuGUI:
         self.plot_button.pack()
 
     def plot_sample_sudoku(self):
-    # Path to your executable file
+        # Path to your executable file
         exe_path = r'libs\sudoku_graph_coloration.exe'
 
         try:
@@ -47,21 +46,34 @@ class SudokuGUI:
             result = subprocess.run([exe_path, str(self.n), str(self.start_row), str(self.start_col)],
                                     capture_output=True, text=True)
 
-            # Parse the output strings to extract Sudoku grids
-            sudoku_grids = []
-            for line in result.stdout.strip().split('\n'):
-                if line.startswith('"graph":'):
-                    sudoku_grid = json.loads("{" + line.strip()[:-1] + "}")["graph"]
-                    sudoku_grids.append(sudoku_grid)
+            # Separate the output into grids
+            separate = result.stdout.replace('\n', '').strip().split('-')
+            sepate_array1 = separate[0].split(';')
+            sepate_array2 = separate[1].split(';')
 
-            # Plot Sudoku grids using matplotlib
-            plt.figure(figsize=(12, 6))
-            for i, sudoku_grid in enumerate(sudoku_grids):
-                plt.subplot(1, len(sudoku_grids), i + 1)
-                plt.imshow(sudoku_grid, cmap='viridis', interpolation='nearest')
-                plt.title(f'Sudoku Grid {i + 1} (Size: {self.n}x{self.n})')
-                plt.axis('off')  # Turn off axis
-                plt.colorbar()  # Show color bar for reference
+            array1 = np.array([list(map(int, row.split(','))) for row in sepate_array1])
+            array2 = np.array([list(map(int, row.split(','))) for row in sepate_array2])
+
+            # Create figure and subplots
+            fig, axs = plt.subplots(1, 2, figsize=(12, 6))
+
+            # Plot Array 1 (Grid 1)
+            axs[0].imshow(array1, cmap='viridis', interpolation='nearest')
+            for i in range(self.n):
+                for j in range(self.n):
+                    axs[0].text(j, i, array1[i, j], ha='center', va='center', color='black')
+
+            axs[0].set_title(f'Sudoku Grid 1 (Size: {self.n}x{self.n})')
+            axs[0].axis('off')  # Turn off axis
+
+            # Plot Array 2 (Grid 2)
+            axs[1].imshow(array2, cmap='viridis', interpolation='nearest')
+            for i in range(self.n):
+                for j in range(self.n):
+                    axs[1].text(j, i, array2[i, j], ha='center', va='center', color='black')
+
+            axs[1].set_title(f'Sudoku Grid 2 (Size: {self.n}x{self.n})')
+            axs[1].axis('off')  # Turn off axis
 
             plt.tight_layout()
             plt.show()
@@ -72,9 +84,6 @@ class SudokuGUI:
             messagebox.showerror("Error", f"The executable '{exe_path}' was not found.")
         except subprocess.CalledProcessError as e:
             messagebox.showerror("Error", f"Failed to run '{exe_path}': {e}")
-        except json.JSONDecodeError as je:
-            messagebox.showerror("Error", f"Failed to parse JSON output: {je}")
-
 
 def main():
     root = tk.Tk()

@@ -1,0 +1,3 @@
+tkinter
+matplotlib>=3.0.0
+numpy>=1.0.0

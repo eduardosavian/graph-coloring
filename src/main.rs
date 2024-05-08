@@ -58,18 +58,18 @@ fn graph_coloring(
 }
 
 fn graph_to_json(graph: &Vec<Vec<i32>>) -> String {
-    let mut res = String::from("\"graph\":[");
+    let mut res = String::from("");
 
     for row in 0..graph.len() {
-        res.push_str("[");
+        res.push_str("");
         for col in 0..graph.len() {
             res.push_str(&format!("{},", graph[row][col]));
         }
         res.pop(); // Remove vírgula
-        res.push_str("],");
+        res.push_str(";");
     }
     res.pop(); // Remove vírgula
-    res.push_str("]");
+    res.push_str("-");
 
     res
 }

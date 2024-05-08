@@ -1,5 +1,7 @@
 # Graph Coloring
 
+Eduardo Savian, Marcos Fehlauer, Pablo Marques
+
 ## Description
 
 Fazer a distribuição dos valores no tabuleiro do Sudoku, respeitando suas restrições, para tabuleiros de ordem variável.
@@ -16,8 +18,8 @@ A ordem do tabuleiro e o ponto de inicio da distribuição devem ser informados 
 
     [![Exemplo de um Sudoku 4X4](images/exemplo.png)]
 
-## Run
+## Para executar para fazer o seguinte comando
 
 ```bash
-python src/main
+./sudoku-coloring.exe
 ```
